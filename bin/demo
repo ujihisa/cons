@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+def s(o) puts o; system o; end
+
+master = 'demo_master'
+s "git checkout -b #{master}"
+(0..10).each do |i|
+  s "git checkout -b #{i}"
+  s "touch #{i}"
+  s "git add #{i}"
+  s "git commit -m #{i}"
+
+  s "git checkout #{master}"
+  s "echo #{i} >> #{master}"
+  s "git add #{i}"
+  s "git commit -m #{i}"
+
+  s "git merge #{i}"
+  s "git checkout #{i}"
+end
